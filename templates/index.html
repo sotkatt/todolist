@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Приложение для дел</title>
+	{% load static %}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	{% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+	<nav>
+		<div class="navbar-menu ">
+			<div class="navbar-start">
+
+				<a class="navbar-item" href="../todo"> Список дел </a>
+
+			</div>
+	</nav>
+	{% block content %}
+	{% endblock %}
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+
+	<div class="columns has-background-black-ter is-centered has-text-white-bis" style="min-height:101vh;">
+
+		<div class="column is-half">
+			<h1 class="is-size-3 has-text-centered"> Список дел </h1>
+			
+			<div class="field has-text-centered">
+				<label for="description" class="label has-text-white-bis">Введите дело</label>
+				<div class="control">
+					<form method="post">
+						{% csrf_token %}
+						<input type="text" id="title" class="input" placeholder="Чем собираетесь заняться?" name="title"
+							required>
+						<input type="text" id="description" class="input" placeholder="Чем собираетесь заняться?"
+							name="description" required>
+						<button type="submit">Добавить задание</button>
+					</form>
+				</div>
+			</div>
+		</div>
+ц
+			<div class="list is-hoverable">
+				{% for task in tasks %}
+				<div class="list-item">
+					<label class="checkbox">
+						<input type="checkbox" class=" checkbox" name="checkedbox" value="{{ todo.id }}">
+						<span class="complete-">{{ task.title }}</span>
+						<span class="complete-">{{ task.description }}</span>
+					</label>
+					<strong class="is-pulled-right"><i class="fa fa-calendar"></i>{{ tasks.created }} -</strong>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
